@@ -9,15 +9,6 @@ body,
   background-color: #fff;
 }
 
-#viewSelectContainer {
-  opacity: 0.9;
-  top: 10px;
-  left: 10px;
-  position: absolute;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
-  z-index: 1;
-}
-
 #akViewDiv {
   padding: 0;
   margin: 0;
@@ -62,7 +53,7 @@ body,
 #timeSlider {
   position: absolute;
   left: 10px;
-  top: 40px;
+  top: 10px;
   height: 400px;
   width: 50px;
   background-color: rgba(0, 0, 0, 0);
