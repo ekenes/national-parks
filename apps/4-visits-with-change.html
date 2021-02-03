@@ -84,17 +84,7 @@
                   }
                 },
                 effect: "grayscale(0.3) drop-shadow(0px 7px 20px gray)"
-              }),
-              // new FeatureLayer({
-              //   popupEnabled: false,
-              //   portalItem: {
-              //     id: "f092c20803a047cba81fbf1e30eff0b5"
-              //   },
-              //   minScale: 0,
-              //   maxScale: 0,
-              //   definitionExpression: `NAME LIKE '%NP%' OR NAME LIKE '%National Park%'`,
-              //   effect: "grayscale(0.3) opacity(0.55) drop-shadow(2px 2px 10px green)"
-              // })
+              })
             ]
           },
           layers: [layer]
@@ -297,28 +287,6 @@
             values: [ 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010 ],
             labelsVisible: true
           }
-          // , {
-          //   mode: "position",
-          //   values: [ 1918, 1932, 1942, 1980, 2010 ],
-          //   labelsVisible: true,
-          //   labelFormatFunction: (value, type, index) => {
-          //     if(value === 1918 ){
-          //       return "Flu outbreak";
-          //     }
-          //     if(value === 1932 ){
-          //       return "Great Depression";
-          //     }
-          //     if(value === 1942 ){
-          //       return "WWII";
-          //     }
-          //     if(value === 1980 ){
-          //       return "Economic recession";
-          //     }
-          //     if(value === 2010 ){
-          //       return "Instagram founded";
-          //     }
-          //   }
-          // }
         ]
         });
 
@@ -328,11 +296,9 @@
           .when()
           .then(initializeSlider)
           .then(maintainFixedExtent)
-          // .then(disableNavigation)
           .then(enableHighlightOnPointerMove)
         akView
           .when()
-          // .then(disableNavigation)
           .then(enableHighlightOnPointerMove)
         hiView
           .when()
@@ -437,7 +403,6 @@
           const haloSize = 0;
 
           return [{
-            // deconflictionStrategy: "none",
             where: `F${year} >= 3000000`,
             labelExpressionInfo: {
               expression: "Replace($feature.Park, 'National Park', '')"
@@ -459,7 +424,6 @@
               haloSize
             }
           }, {
-            // deconflictionStrategy: "static",
             where: `F${year} >= 1000000 AND F${year} < 3000000`,
             // minScale: 9387410,
             labelExpressionInfo: {
@@ -481,7 +445,6 @@
               haloSize
             }
           }, {
-            // deconflictionStrategy: "static",
             where: `F${year} < 1000000`,
             // minScale: 9387410,
             labelExpressionInfo: {
@@ -759,9 +722,6 @@
           annualVisitsElement.innerText = intl.formatNumber(annual, {
             digitSeparator: true
           });
-          // totalVisitsElement.innerText = intl.formatNumber(total, {
-          //   digitSeparator: true
-          // });
 
           if(previous){
             if(percentChange > 0){
