@@ -45,6 +45,14 @@
           portalItem: {
             id: "0e3fd5de259f46acb169c54eb501cfe5"
           },
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-marker",
+              color: [0,0,0,0],
+              outline: null
+            }
+          },
           outFields: ["*"],
           layerId: 0,
           minScale: 0,
@@ -417,8 +425,6 @@
           queryStats(layerView, year)
             .then(updateParkVisitationDisplay);
 
-          layer.labelingInfo = createLabelingInfo(year);
-
           const previousYear = year - 1;
           const valueExpression = `(($feature.F${year} - $feature.F${previousYear}) / $feature.F${previousYear}) * 100`;
           const valueExpressionTitle = `% Change in park visitation (${previousYear} - ${year})`;
@@ -463,6 +469,7 @@
           };
           layer.renderer = renderer;
           layer.popupTemplate = createPopupTemplate(year);
+          layer.labelingInfo = createLabelingInfo(year);
           slider.disabled = false;
         }
 

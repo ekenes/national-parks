@@ -54,6 +54,14 @@
           portalItem: {
             id: "0e3fd5de259f46acb169c54eb501cfe5"
           },
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-marker",
+              color: [0,0,0,0],
+              outline: null
+            }
+          },
           outFields: ["*"],
           layerId: 0,
           minScale: 0,
@@ -318,14 +326,19 @@
         });
 
         async function initializeSlider() {
-          year = slider.values[0]
+          year = slider.values[0];
+
+          layer.renderer = createRenderer(year);
+          layer.popupTemplate = createPopupTemplate(year);
+          layer.labelingInfo = createLabelingInfo(year);
+
           yearElement.innerHTML = year;
           previousYearElement.innerHTML = year-1;
           layerView = await mainView.whenLayerView(layer);
+          queryStats(layerView, year)
+            .then(updateParkVisitationDisplay);
+
           watchUtils.whenFalseOnce(layerView, "updating", () => {
-            layer.renderer = createRenderer(year);
-            layer.popupTemplate = createPopupTemplate(year);
-            layer.labelingInfo = createLabelingInfo(year);
             slider.disabled = false;
           });
 

@@ -51,6 +51,14 @@
           portalItem: {
             id: "0e3fd5de259f46acb169c54eb501cfe5"
           },
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-marker",
+              color: [0,0,0,0],
+              outline: null
+            }
+          },
           outFields: ["*"],
           layerId: 0,
           minScale: 0,
@@ -468,8 +476,6 @@
           queryStats(layerView, year)
             .then(updateParkVisitationDisplay);
 
-          layer.labelingInfo = createLabelingInfo(year);
-
           const parkSymbol = new WebStyleSymbol({
             name: "park",
             styleName: "Esri2DPointSymbolsStyle"
@@ -528,6 +534,7 @@
           console.log(renderer);
           layer.renderer = renderer;
           layer.popupTemplate = createPopupTemplate(year);
+          layer.labelingInfo = createLabelingInfo(year);
           slider.disabled = false;
         }
 
