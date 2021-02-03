@@ -385,7 +385,6 @@
           })
 
           return {
-            // type: "simple",
             type: "class-breaks",
             field: `F${year}`,
             classBreakInfos: [
@@ -399,10 +398,9 @@
               {
                 type: "size",
                 field: `F${year}`,
-                // valueExpression: `
-
-                // console($feature.F${year});
-                // DefaultValue($feature.F${year},0)`,
+                legendOptions: {
+                  title: `Total park visits in ${year}`
+                },
                 stops: [
                   { value: 100000, size: "14px" },
                   { value: 1000000, size: "25px" },
@@ -422,11 +420,11 @@
                 `,
                 valueExpressionTitle: "% Change from previous year",
                 stops: [
-                  { value: -10, color: colors[0], label: "More visits" },
+                  { value: -10, color: colors[0], label: "Fewer visits" },
                   { value: -0.1, color: colors[1] },
                   { value: 0, color: colors[2], label: "No change" },
                   { value: 0.1, color: colors[3] },
-                  { value: 10, color: colors[4], label: "Fewer visits" }
+                  { value: 10, color: colors[4], label: "More visits" }
                 ]
               }
             ]
