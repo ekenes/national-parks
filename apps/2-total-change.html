@@ -51,6 +51,14 @@
           portalItem: {
             id: "0e3fd5de259f46acb169c54eb501cfe5"
           },
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-marker",
+              color: [0,0,0,0],
+              outline: null
+            }
+          },
           outFields: ["*"],
           layerId: 0,
           minScale: 0,
@@ -294,28 +302,6 @@
             values: [ 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010 ],
             labelsVisible: true
           }
-          // , {
-          //   mode: "position",
-          //   values: [ 1918, 1932, 1942, 1980, 2010 ],
-          //   labelsVisible: true,
-          //   labelFormatFunction: (value, type, index) => {
-          //     if(value === 1918 ){
-          //       return "Flu outbreak";
-          //     }
-          //     if(value === 1932 ){
-          //       return "Great Depression";
-          //     }
-          //     if(value === 1942 ){
-          //       return "WWII";
-          //     }
-          //     if(value === 1980 ){
-          //       return "Economic recession";
-          //     }
-          //     if(value === 2010 ){
-          //       return "Instagram founded";
-          //     }
-          //   }
-          // }
         ]
         });
 
@@ -325,11 +311,9 @@
           .when()
           .then(initializeSlider)
           .then(maintainFixedExtent)
-          // .then(disableNavigation)
           .then(enableHighlightOnPointerMove)
         akView
           .when()
-          // .then(disableNavigation)
           .then(enableHighlightOnPointerMove)
         hiView
           .when()
@@ -393,7 +377,6 @@
           const haloSize = 0;
 
           return [{
-            // deconflictionStrategy: "none",
             where: `F${year} >= 3000000`,
             labelExpressionInfo: {
               expression: "Replace($feature.Park, 'National Park', '')"
@@ -415,7 +398,6 @@
               haloSize
             }
           }, {
-            // deconflictionStrategy: "static",
             where: `F${year} >= 1000000 AND F${year} < 3000000`,
             // minScale: 9387410,
             labelExpressionInfo: {
@@ -437,7 +419,6 @@
               haloSize
             }
           }, {
-            // deconflictionStrategy: "static",
             where: `F${year} < 1000000`,
             // minScale: 9387410,
             labelExpressionInfo: {
@@ -465,11 +446,9 @@
           queryStats(layerView, year)
             .then(updateParkVisitationDisplay);
 
-          layer.labelingInfo = createLabelingInfo(year);
-
           const previousYear = year - 1;
           const valueExpression = `$feature.F${year} - $feature.F${previousYear}`;
-          const valueExpressionTitle = `% Change in park visitation (${year} - ${previousYear})`;
+          const valueExpressionTitle = `Total change in park visits (${previousYear} - ${year})`;
 
           const colorScheme = colorSchemes.getSchemeByName({
             geometryType: layer.geometryType,
@@ -512,6 +491,7 @@
           console.log(renderer);
           layer.renderer = renderer;
           layer.popupTemplate = createPopupTemplate(year);
+          layer.labelingInfo = createLabelingInfo(year);
           slider.disabled = false;
         }
 

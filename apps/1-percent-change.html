@@ -45,6 +45,14 @@
           portalItem: {
             id: "0e3fd5de259f46acb169c54eb501cfe5"
           },
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-marker",
+              color: [0,0,0,0],
+              outline: null
+            }
+          },
           outFields: ["*"],
           layerId: 0,
           minScale: 0,
@@ -102,6 +110,7 @@
         };
 
         mainView = new MapView({
+          container: "mainViewDiv",
           map,
           popup: {
             highlightEnabled: true,
@@ -158,6 +167,7 @@
         });
 
         akView = new MapView({
+          container: "akViewDiv",
           map: map,
           extent: akExtent,
           spatialReference: {
@@ -184,6 +194,7 @@
         });
 
         hiView = new MapView({
+          container: "hiViewDiv",
           map,
           extent: {
             type: "extent",
@@ -218,6 +229,7 @@
         });
 
         viView = new MapView({
+          container: "viViewDiv",
           map,
           extent: {
             spatialReference: {
@@ -270,115 +282,6 @@
           }
         ]
         });
-
-        const viewSelect = document.getElementById("viewSelect");
-        const mainViewDiv = document.getElementById("mainViewDiv");
-        const akViewDiv = document.getElementById("akViewDiv");
-        const hiViewDiv = document.getElementById("hiViewDiv");
-        const viViewDiv = document.getElementById("viViewDiv");
-        let akHandler;
-
-        viewSelect.addEventListener("change", setViews);
-
-        function setViews(){
-          const selectedViews = viewSelect.value;
-          if(akHandler){
-            akHandler.remove();
-            akHandler = null;
-          }
-
-          // mainViewDiv.style.display = "block";
-          // akViewDiv.style.display = "none";
-          // hiViewDiv.style.display = "none";
-          // viViewDiv.style.display = "none";
-          mainView.container = null;
-          akView.container = null;
-          hiView.container = null;
-          viView.container = null;
-
-          switch (selectedViews) {
-            case "all":
-              mainView.container = mainViewDiv;
-              akView.container = akViewDiv;
-              hiView.container = hiViewDiv;
-              viView.container = viViewDiv;
-
-              mainViewDiv.style.display = "block";
-              akViewDiv.style.display = "block";
-              hiViewDiv.style.display = "block";
-              viViewDiv.style.display = "block";
-
-              akHandler = akView.on("blur", () => {
-                akView.goTo(akExtent, {
-                  animate: true,
-                  duration: 1000,
-                  easing: "ease-in"
-                });
-              });
-              break;
-            case "us":
-              mainView.container = mainViewDiv;
-              // akView.container = null;
-              // hiView.container = null;
-              // viView.container = null;
-
-              // mainViewDiv.style.display = "block";
-              // akViewDiv.style.display = "none";
-              // hiViewDiv.style.display = "none";
-              // viViewDiv.style.display = "none";
-              break;
-            case "ak":
-              // mainView.container = null;
-              akView.container = mainViewDiv;
-              // hiView.container = null;
-              // viView.container = null;
-
-              // mainViewDiv.style.display = "block";
-              // akViewDiv.style.display = "none";
-              // hiViewDiv.style.display = "none";
-              // viViewDiv.style.display = "none";
-              break;
-            case "hi":
-              // mainView.container = null;
-              // akView.container = null;
-              hiView.container = mainViewDiv;
-              // viView.container = null;
-
-              // mainViewDiv.style.display = "block";
-              // akViewDiv.style.display = "none";
-              // hiViewDiv.style.display = "none";
-              // viViewDiv.style.display = "none";
-              break;
-            case "vi":
-              // mainView.container = null;
-              // akView.container = null;
-              // hiView.container = null;
-              viView.container = mainViewDiv;
-
-              // mainViewDiv.style.display = "block";
-              // akViewDiv.style.display = "none";
-              // hiViewDiv.style.display = "none";
-              // viViewDiv.style.display = "none";
-              break;
-            default:
-              mainView.container = mainViewDiv;
-              akView.container = akViewDiv;
-              hiView.container = hiViewDiv;
-              viView.container = viViewDiv;
-
-              mainViewDiv.style.display = "block";
-              akViewDiv.style.display = "block";
-              hiViewDiv.style.display = "block";
-              viViewDiv.style.display = "block";
-          }
-        }
-        if(isMobileBrowser()){
-          viewSelect.value = "us";
-          const allOption = document.getElementById("all");
-          allOption.disabled = true;
-        }
-
-        setViews();
 
         let year = 0;
 
@@ -522,11 +425,9 @@
           queryStats(layerView, year)
             .then(updateParkVisitationDisplay);
 
-          layer.labelingInfo = createLabelingInfo(year);
-
           const previousYear = year - 1;
           const valueExpression = `(($feature.F${year} - $feature.F${previousYear}) / $feature.F${previousYear}) * 100`;
-          const valueExpressionTitle = `% Change in park visitation (${year} - ${previousYear})`;
+          const valueExpressionTitle = `% Change in park visitation (${previousYear} - ${year})`;
 
           const colorScheme = colorSchemes.getSchemeByName({
             geometryType: layer.geometryType,
@@ -568,6 +469,7 @@
           };
           layer.renderer = renderer;
           layer.popupTemplate = createPopupTemplate(year);
+          layer.labelingInfo = createLabelingInfo(year);
           slider.disabled = false;
         }
 
@@ -851,15 +753,6 @@
   </head>
 
   <body>
-    <div id="viewSelectContainer" class="esri-widget">
-      <select id="viewSelect" class="esri-widget">
-        <option value="all" selected>All parks</option>
-        <option value="us">Lower 48 states</option>
-        <option value="ak">Alaska</option>
-        <option value="hi">Hawaii</option>
-        <option value="vi">Virgin Islands</option>
-      </select>
-    </div>
     <div id="mainViewDiv" class="mainView"></div>
     <div id="akViewDiv" class="esri-widget"></div>
     <div id="hiViewDiv" class="esri-widget"></div>
