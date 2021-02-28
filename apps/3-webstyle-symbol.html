@@ -289,8 +289,8 @@
           container: "timeSlider",
           playRate: 100,
           min: 1905,
-          max: 2019,
-          values: [ 2019 ],
+          max: 2020,
+          values: [ 2020 ],
           steps: 1,
           layout: "vertical",
           visibleElements: {
@@ -649,7 +649,7 @@
 
         function createFieldsForChart (){
           const start = 1905;
-          const end = 2019;
+          const end = 2020;
           fieldsForChart = [];
           fieldInfos = [];
 
@@ -720,7 +720,7 @@
                 fieldName: "expression/min"
               }, {
                 fieldName: "TOTAL",
-                label: "Total visits (1904-2019)",
+                label: "Total visits (1904-2020)",
                 format: {
                   places: 0,
                   digitSeparator: true
@@ -730,7 +730,7 @@
               type: "media",
               mediaInfos: [{
                 type: "line-chart",
-                title: "Park visitation (1905-2019)",
+                title: "Park visitation (1905-2020)",
                 value: {
                   fields: fieldsForChart
                 }

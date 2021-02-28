@@ -4,9 +4,9 @@ The apps included in this repository visualize how annual visits to U.S. nationa
 
 ## Maps
 
-- [Total change in visits (1905-2019)](https://ekenes.github.io/national-parks/apps/2-total-change.html)
-- [Percent change in visits (1905-2019)](https://ekenes.github.io/national-parks/apps/1-percent-change.html)
-- [Total visits to each park (1905-2019)](https://ekenes.github.io/national-parks/apps/4-visits-with-change.html)
+- [Total change in visits (1905-2020)](https://ekenes.github.io/national-parks/apps/2-total-change.html)
+- [Percent change in visits (1905-2020)](https://ekenes.github.io/national-parks/apps/1-percent-change.html)
+- [Total visits to each park (1905-2020)](https://ekenes.github.io/national-parks/apps/4-visits-with-change.html)
 
 ## Data
 
